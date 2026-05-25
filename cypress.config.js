@@ -2,7 +2,8 @@ const { defineConfig } = require('cypress');
 const mochawesome = require('cypress-mochawesome-reporter/plugin');
 require('dotenv').config();
 
-const requestTimeoutMs = Number(process.env.REQUEST_TIMEOUT_MS || 5000);
+const parsed = Number(process.env.REQUEST_TIMEOUT_MS);
+const requestTimeoutMs = Number.isFinite(parsed) ? parsed : 5000;
 
 module.exports = defineConfig({
   e2e: {
