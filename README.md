@@ -5,60 +5,63 @@
 ![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
+Projeto moderno de automação de testes de API utilizando Cypress, com arquitetura escalável, organização por domínio, validação de contratos, relatórios HTML, evidências e integração contínua.
 
-
-## Objetivo
-
-Projeto de automação de testes de API utilizando Cypress, com foco em validação de endpoints REST, organização escalável e integração contínua.
-Este projeto demonstra boas práticas de automação aplicadas a cenários reais, incluindo validação de status codes, contratos de resposta, autenticação e testes negativos.
-
+O projeto usa a API pública [ServeRest](https://serverest.dev/) como alvo de testes para demonstrar fluxos reais de autenticação, usuários, testes negativos e validações REST.
 
 ## Tech Stack
 
 - Cypress
 - JavaScript
-- API Testing
 - Node.js
-- CI/CD (GitHub Actions)
-- REST APIs
+- AJV para JSON Schema
+- Mochawesome Reporter
+- GitHub Actions
 
+## Estrutura
 
-### Estrutura
-
+```text
+.github/workflows/              Pipeline de CI
+cypress/e2e/                    Testes funcionais por domínio
+cypress/fixtures/               Massa estática de testes
+cypress/schemas/                Contratos JSON Schema
+cypress/support/                Commands e setup global
+services/                       Camada de serviços por domínio
+utils/                          Factories e helpers reutilizáveis
+docs/                           Documentação técnica
 ```
-cypress/
-  e2e/            → Casos de testes (users, auth)
-  fixtures/       → Massa de testes. Dados estáticos (mocks)
-  support/        → Custom Commands globais
 
-services/         → Camada de abstração da API . Wrappers de serviço por domínio (UserService, AuthService)
-utils/            → Helpers e geração de dados dinâmicos (dataFactory)
-```
+## Cenários Cobertos
 
-### Cenários Cobertos
-
-- Autenticação
+- Autenticação com sucesso
+- Credenciais inválidas
 - CRUD de usuários
+- Cadastro duplicado
 - Validação de status codes
-- Testes negativos
-- Validação de schema de resposta
-- Tempo de resposta
-- Tratamento de erros
+- Validação de contrato de resposta
+- Validação de tempo de resposta
+- Geração de evidências e relatório HTML
 
-### Instalação
+## Instalação
 
 ```bash
 npm install
 ```
 
-### Configuração
+## Configuração
 
 ```bash
 cp .env.example .env
-# edite BASE_URL e AUTH_TOKEN
 ```
 
-### Executar testes
+Variáveis disponíveis:
+
+```env
+BASE_URL=https://serverest.dev
+REQUEST_TIMEOUT_MS=5000
+```
+
+## Executar testes
 
 ```bash
 # Interface gráfica
@@ -67,15 +70,33 @@ npm run cy:open
 # Linha de comando
 npm run cy:run
 
-# Headless (CI)
+# Headless para CI
 npm run cy:run:headless
+
+# Alias principal
+npm run test:api
+```
+
+## Relatorios e Evidencias
+
+Após a execução, os artefatos são gerados em:
+
+```text
+cypress/reports/html             Relatório HTML Mochawesome
+cypress/evidence/videos          Vídeos da execução
+cypress/evidence/screenshots     Screenshots em caso de falha
 ```
 
 ## Integração Contínua
 
-Os testes são executados automaticamente via GitHub Actions a cada push e pull request.
+O workflow `.github/workflows/api-tests.yml` executa os testes automaticamente em push, pull request e também manualmente pelo `workflow_dispatch`.
 
+Ao final da execução, o GitHub Actions publica os artefatos:
 
+- Relatório HTML
+- Vídeos
+- Screenshots
 
+## Arquitetura
 
-
+Mais detalhes em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
