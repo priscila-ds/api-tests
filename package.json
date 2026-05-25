@@ -1,0 +1,38 @@
+{
+  "name": "api-tests",
+  "version": "1.0.0",
+  "description": "Projeto de automação de APIs com Cypress, relatórios HTML, evidências e CI.",
+  "private": true,
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:headless": "cypress run --browser chrome --headless",
+    "test:api": "npm run cy:run:headless",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "cypress",
+    "api-testing",
+    "qa-automation",
+    "rest-api",
+    "github-actions"
+  ],
+  "author": "Priscila",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "ajv": "^8.20.0",
+    "cypress": "^15.15.0",
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "dotenv": "^17.4.2",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0"
+  }
+}
