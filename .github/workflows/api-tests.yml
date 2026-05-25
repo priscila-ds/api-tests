@@ -1,0 +1,50 @@
+name: API Tests
+
+on:
+  push:
+    branches: ['main', 'master']
+  pull_request:
+    branches: ['main', 'master']
+  workflow_dispatch:
+
+jobs:
+  cypress-api-tests:
+    name: Cypress API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API tests
+        run: npm run cy:run:headless
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://serverest.dev' }}
+          REQUEST_TIMEOUT_MS: 5000
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-html-report
+          path: cypress/reports/html
+          if-no-files-found: ignore
+
+      - name: Upload evidences
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-evidences
+          path: |
+            cypress/evidence/screenshots
+            cypress/evidence/videos
+          if-no-files-found: ignore
