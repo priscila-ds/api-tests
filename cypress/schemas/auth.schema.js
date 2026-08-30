@@ -16,3 +16,12 @@ export const errorSchema = {
   },
   additionalProperties: true
 };
+
+export const loginValidationErrorSchema = {
+  type: 'object',
+  properties: {
+    email: { type: 'string' },
+    password: { type: 'string' }
+  },
+  additionalProperties: true
+};

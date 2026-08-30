@@ -11,3 +11,38 @@ export const buildUser = (overrides = {}) => {
     ...overrides
   };
 };
+
+export const buildProduct = (overrides = {}) => {
+  const id = uniqueId();
+
+  return {
+    nome: `Produto QA ${id}`,
+    preco: Math.floor(Math.random() * 1000) + 1,
+    descricao: `Descricao do produto ${id}`,
+    quantidade: Math.floor(Math.random() * 100) + 1,
+    ...overrides
+  };
+};
+
+export const buildCart = (productId, quantity = 1) => ({
+  produtos: [
+    {
+      idProduto: productId,
+      quantidade: quantity
+    }
+  ]
+});
+
+export const buildInvalidUser = () => ({
+  nome: '',
+  email: 'email-invalido',
+  password: '',
+  administrador: 'true'
+});
+
+export const buildInvalidProduct = () => ({
+  nome: '',
+  preco: -10,
+  descricao: '',
+  quantidade: -5
+});

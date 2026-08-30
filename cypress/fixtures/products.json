@@ -1,0 +1,18 @@
+{
+  "invalidProduct": {
+    "nome": "",
+    "preco": -10,
+    "descricao": "",
+    "quantidade": -5
+  },
+  "productWithoutName": {
+    "preco": 100,
+    "descricao": "Produto sem nome",
+    "quantidade": 10
+  },
+  "productWithoutPrice": {
+    "nome": "Produto sem preco",
+    "descricao": "Descricao",
+    "quantidade": 10
+  }
+}
